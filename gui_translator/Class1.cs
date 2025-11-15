@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.FileIO;
-using System;
+﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
+using Microsoft.VisualBasic.FileIO;
 
 namespace gui_translator
 {

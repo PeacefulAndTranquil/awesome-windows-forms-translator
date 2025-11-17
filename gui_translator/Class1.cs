@@ -57,11 +57,6 @@ namespace gui_translator
             else { lang_2_to_lang_1.Add(lang_2_word, lang_1_word); }
         }
 
-        private string TranslateWord1To2(string lang_1_word)
-        {
-            return (lang_1_to_lang_2.ContainsKey(lang_1_word))?(lang_1_to_lang_2[lang_1_word]):(lang_1_word);
-        }
-
         public string Translate1To2(string lang_1_string)
         {
             //regex shamelessly stolen from https://stackoverflow.com/a/6143686
@@ -72,9 +67,18 @@ namespace gui_translator
                 lang_1_string = Regex.Replace(lang_1_string, regex, lang_1_to_lang_2[s]);
             }
             return lang_1_string;
-
         }
-
+        public string Translate2To1(string lang_2_string)
+        {
+            //regex shamelessly stolen from https://stackoverflow.com/a/6143686
+            string regex;
+            foreach (string s in lang_2_to_lang_1.Keys)
+            {
+                regex = $"\\b{s}\\b";
+                lang_2_string = Regex.Replace(lang_2_string, regex, lang_2_to_lang_1[s]);
+            }
+            return lang_2_string;
+        }
 
         public static Translator ImportFromCSV(string path)
         {

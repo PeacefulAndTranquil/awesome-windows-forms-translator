@@ -2,6 +2,7 @@
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -78,6 +79,58 @@ namespace gui_translator
                 lang_2_string = Regex.Replace(lang_2_string, regex, lang_2_to_lang_1[s]);
             }
             return lang_2_string;
+        }
+
+        public static Translator ImportFromSS14FTL(string path)
+        {
+            //accent-.+-words-{n}(-\d+)? = //<-- that detects all the words to be replaced
+            //accent-.+-words-replace-{n}(-\d+)? //<-- detects all words to replace them with
+            Translator outt = new Translator();
+            outt.lang_1_name = "english";
+            
+            string fullfile;
+            using(StreamReader reader = new StreamReader(path))
+            {
+                fullfile = reader.ReadToEnd();
+            }
+
+            outt.lang_2_name = Regex.Match(fullfile, "(?<=accent-).*(?=-words-\\d+(-\\d+)? = .*)").ToString();
+            bool keepgoin = true;
+            List<string> testwords = new List<string>();
+            List<string> testreplacements = new List<string>();
+            MatchCollection tester = Regex.Matches(fullfile, $"accent-.+-words-{2}(-\\d+)? = .*");
+            for (int i = 0; keepgoin ; i++)
+            {
+                MatchCollection words = Regex.Matches(fullfile, $"accent-.+-words-{i+1}(-\\d+)? = .*");
+                MatchCollection replacements = Regex.Matches(fullfile, $"accent-.+-words-replace-{i+1}(-\\d+)? = .*");
+                if (words.Count == 0)
+                {
+                    keepgoin = false;
+                }
+                else
+                {
+                    testwords = new List<string>();
+                    testreplacements = new List<string>();
+                    foreach (Match match in words)
+                    {
+                        string str = Regex.Replace(match.ToString(), $"accent-.+-words-{i+1}(-\\d+)? = ", "");
+                        testwords.Add(str);
+                    }
+                    foreach (Match match in replacements)
+                    {
+                        testreplacements.Add(Regex.Replace(match.ToString(), $"accent-.+-words-replace-{i+1}(-\\d+)? = ", ""));
+                    }
+                    foreach(string word in testwords)
+                    {
+                        foreach (string replacement in testreplacements)
+                        {
+                            outt.AddWord(word, replacement);
+                        }
+                    }
+
+                }
+            }
+            return outt;
         }
 
         public static Translator ImportFromCSV(string path)

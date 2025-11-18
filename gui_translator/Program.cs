@@ -16,9 +16,6 @@ namespace gui_translator
         [STAThread]
         static void Main()
         {
-            Translator translator = Translator.ImportFromCSV("testcsv.csv");
-            Debug.Print(translator.Translate1To2("english word. and letter!"));
-            Translator translator2 = Translator.ImportFromSS14FTL("milbrat.ftl");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

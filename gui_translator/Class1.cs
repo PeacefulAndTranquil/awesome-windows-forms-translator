@@ -41,6 +41,14 @@ namespace gui_translator
             return $"({original}/{append})";
         }
 
+        public string GetLang1Name()
+        {
+            return lang_1_name;
+        }
+        public string GetLang2Name()
+        {
+            return lang_2_name;
+        }
         
 
         public void AddWord(string lang_1_word, string lang_2_word)

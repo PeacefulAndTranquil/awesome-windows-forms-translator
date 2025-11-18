@@ -45,6 +45,8 @@ namespace gui_translator
 
         public void AddWord(string lang_1_word, string lang_2_word)
         {
+            lang_1_word = lang_1_word.ToLower();
+            lang_2_word = lang_2_word.ToLower();
             if (lang_1_to_lang_2.ContainsKey(lang_1_word))
             {
                 lang_1_to_lang_2[lang_1_word] = formatMultiples(lang_1_to_lang_2[lang_1_word],lang_2_word);
@@ -62,6 +64,7 @@ namespace gui_translator
         {
             //regex shamelessly stolen from https://stackoverflow.com/a/6143686
             string regex;
+            lang_1_string = lang_1_string.ToLower();
             foreach (string s in lang_1_to_lang_2.Keys)
             {
                 regex = $"\\b{s}\\b";
@@ -73,6 +76,7 @@ namespace gui_translator
         {
             //regex shamelessly stolen from https://stackoverflow.com/a/6143686
             string regex;
+            lang_2_string = lang_2_string.ToLower();
             foreach (string s in lang_2_to_lang_1.Keys)
             {
                 regex = $"\\b{s}\\b";

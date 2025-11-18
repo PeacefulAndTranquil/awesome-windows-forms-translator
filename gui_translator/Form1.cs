@@ -17,6 +17,7 @@ namespace gui_translator
         public Form1()
         {
             InitializeComponent();
+            translator = new Translator();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -32,9 +33,10 @@ namespace gui_translator
             {
                 string path = openFileDialog1.FileName;
                 translator = Translator.ImportFromCSV(path);
+
+                lang_1_name_label.Text = translator.GetLang1Name();
+                lang_2_name_label.Text = translator.GetLang2Name();
             }
-            lang_1_name_label.Text = translator.GetLang1Name();
-            lang_2_name_label.Text = translator.GetLang2Name();
         }
 
         private void import_ftl_button_Click(object sender, EventArgs e)
@@ -45,9 +47,10 @@ namespace gui_translator
             {
                 string path = openFileDialog1.FileName;
                 translator = Translator.ImportFromSS14FTL(path);
+                lang_1_name_label.Text = translator.GetLang1Name();
+                lang_2_name_label.Text = translator.GetLang2Name();
             }
-            lang_1_name_label.Text = translator.GetLang1Name();
-            lang_2_name_label.Text = translator.GetLang2Name();
+            
         }
 
         static bool byCode;

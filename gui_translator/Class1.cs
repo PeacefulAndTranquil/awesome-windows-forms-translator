@@ -73,7 +73,11 @@ namespace gui_translator
             //regex shamelessly stolen from https://stackoverflow.com/a/6143686
             string regex;
             lang_1_string = lang_1_string.ToLower();
-            foreach (string s in lang_1_to_lang_2.Keys)
+            //thank you https://stackoverflow.com/a/20087299 for the array sorting thing
+            string[] keys = lang_1_to_lang_2.Keys.ToArray();
+            Array.Sort(keys, (x, y) => x.Length.CompareTo(y.Length));
+            Array.Reverse(keys);
+            foreach (string s in keys)
             {
                 regex = $"\\b{s}\\b";
                 lang_1_string = Regex.Replace(lang_1_string, regex, lang_1_to_lang_2[s]);
@@ -85,7 +89,11 @@ namespace gui_translator
             //regex shamelessly stolen from https://stackoverflow.com/a/6143686
             string regex;
             lang_2_string = lang_2_string.ToLower();
-            foreach (string s in lang_2_to_lang_1.Keys)
+            //thank you https://stackoverflow.com/a/20087299 for the array sorting thing
+            string[] keys = lang_2_to_lang_1.Keys.ToArray();
+            Array.Sort(keys, (x, y) => x.Length.CompareTo(y.Length));
+            Array.Reverse(keys);
+            foreach (string s in keys)
             {
                 regex = $"\\b{s}\\b";
                 lang_2_string = Regex.Replace(lang_2_string, regex, lang_2_to_lang_1[s]);

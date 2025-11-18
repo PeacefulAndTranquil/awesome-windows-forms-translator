@@ -16,6 +16,8 @@ namespace gui_translator
         [STAThread]
         static void Main()
         {
+            //thank you https://stackoverflow.com/a/20087299 for the array sorting thing
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
